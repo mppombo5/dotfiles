@@ -1,0 +1,59 @@
+## Aliases
+
+# Necessary to pass aliases into sudo
+alias sudo='sudo '
+
+# Who has time to write out ls options, of all things?
+alias ls='ls --color=auto'
+alias la='ls -lAh'
+alias ll='ls -lh'
+
+alias grep='grep --color=auto'
+
+# Git related stuff
+# Some inspiration taken from oh-my-zsh's git plugin
+alias gst='git status'
+alias ga='git add'
+alias gA='git add -A'
+alias gd='git diff --color=always | less -r'
+alias gb='git branch'
+alias gbd='git branch -D'
+alias gch='git checkout'
+
+# Like i'm gonna remember "spectacle"
+# 'scap' ~= 'screencap'
+alias scap='spectacle'
+
+# I like Mac's way of doing things
+alias open='xdg-open'
+
+# I deserve pretty package managing
+alias pacman='pacman --color=auto'
+
+## Functions
+
+function cdl() {
+    if [[ -z "$1" ]]; then
+        cd && ls
+    else
+        cd "$1" && ls
+    fi
+}
+
+function mkcd() {
+    mkdir -p "$1" && cdl "$1"
+}
+
+# My attempt at cd-gitroot
+# cdl to the root of the current git repo, if inside one
+function cdu() {
+    if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) != 'true' ]]; then
+        echo 'Not inside a git repository' 1>&2
+        return 1
+    fi
+
+    local gitroot=$(git rev-parse --show-toplevel)
+    cdl "$gitroot"
+    return 0
+}
+
