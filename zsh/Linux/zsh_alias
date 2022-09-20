@@ -4,12 +4,14 @@
 alias sudo='sudo '
 alias suvim='sudo vim'
 
-# Who has time to write out ls options, of all things?
+# Colors!
 alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+# Who has time to write out ls options, of all things?
 alias la='ls -lAh'
 alias ll='ls -lh'
-
-alias grep='grep --color=auto'
 
 # Git related stuff
 # Some inspiration taken from oh-my-zsh's git plugin

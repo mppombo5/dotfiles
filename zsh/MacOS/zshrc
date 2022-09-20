@@ -1,0 +1,49 @@
+### My stuff below here (if anything ever gets added above)
+
+# Vim is the superior keybinding
+bindkey -v
+
+if ! [[ -f ~/.zsh_alias ]]; then
+    echo "Aliases not loaded, ~/.zsh_alias does not exist."
+else
+    source ~/.zsh_alias
+fi
+
+## Plugins!
+autosuggest_file=/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if ! [[ -f $autosuggest_file ]]; then
+    echo "zsh-autosuggestions.zsh not found in $(dirname $autosuggest_file). Install the plugin or consider updating the location in your zshrc."
+else
+    source $autosuggest_file
+fi
+
+syntax_file=/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if ! [[ -f $syntax_file ]]; then
+    echo "zsh-syntax-highlighting.zsh not found in $(dirname $syntax_file). Install the plugin or consider updating the location in your zshrc."
+else
+    source $syntax_file
+fi
+
+## Prompt stuff (ripped from my Arch zshrc)
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# Format vcs_info_msg_0_ variable
+# No idea what the hell those magic variables are (:vcs_info:...) but it looks nice
+zstyle ':vcs_info:git:*' formats '%F{blue}%B(%%b%F{10}%b%F{blue}%B)%%b%f '
+
+# Customize prompt
+setopt PROMPT_SUBST
+export PROMPT='${vcs_info_msg_0_}%F{green}%n%f:%F{blue}%2~%f%% '
+export RPROMPT='%(0?..%F{red}%?%f)'
+
+# $PATH edits
+export PATH="$PATH:/opt/homebrew/opt/python@3.10/libexec/bin"
+
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
+## Final lines for a homely experience
+# re-add neofetch when I get colors I like
+#neofetch
+echo 'Welcome back, Matthew!'
+

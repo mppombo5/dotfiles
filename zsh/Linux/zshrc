@@ -14,7 +14,11 @@ compinit
 
 ### My stuff below here ###
 
-[[ -f ~/.zsh_alias ]] && source ~/.zsh_alias
+if ! [[ -f ~/.zsh_alias ]]; then
+    echo "Aliases not loaded, ~/.zsh_alias does not exist."
+else
+    source ~/.zsh_alias
+fi
 
 ## Plugins!
 # I like autosuggestions
@@ -22,7 +26,7 @@ autosuggest_file="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions
 if ! [[ -f $autosuggest_file ]]; then
     echo "zsh-autosuggestions.zsh not found in $(dirname $autosuggest_file). Install the plugin or consider updating the location in your zshrc."
 else
-    source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    source $autosuggest_file
 fi
 
 # I also like syntax highlighting
@@ -30,7 +34,7 @@ syntax_file="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlight
 if ! [[ -f $syntax_file ]]; then
     echo "zsh-syntax-highlighting.zsh not found in $(dirname $syntax_file). Install the plugin or consider updating the location in your zshrc."
 else
-    source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    source $syntax_file
 fi
 
 # I'm such a cool guy just look at me go

@@ -1,0 +1,55 @@
+# vi: ft=zsh
+## Aliases
+
+# Commands that should respect subsequent aliasing
+alias sudo='sudo '
+
+# Colors!
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# Coreutils options
+alias la='ls -lAh'
+alias ll='ls -lh'
+
+# Git stuff
+# Inspiration taken from oh-my-zsh's git plugin
+alias gst='git status'
+alias ga='git add'
+alias gA='git add -A'
+alias gd='git diff --color=always | less -r'
+alias gb='git branch'
+alias gbd='git branch -D'
+alias gch='git checkout'
+
+## Functions
+
+function cdl() {
+    cd $1 && ls
+}
+
+function cdla() {
+    cd $1 && la
+}
+
+function cdll() {
+    cd $1 && ll
+}
+
+function mkcd() {
+    mkdir -p "$1" && cdl "$1"
+}
+
+# Colorful manpages
+function man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man $@
+}
+
