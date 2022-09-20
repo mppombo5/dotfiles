@@ -2,6 +2,7 @@
 
 # Necessary to pass aliases into sudo
 alias sudo='sudo '
+alias suvim='sudo vim'
 
 # Who has time to write out ls options, of all things?
 alias ls='ls --color=auto'
@@ -30,14 +31,24 @@ alias open='xdg-open'
 # I deserve pretty package managing
 alias pacman='pacman --color=auto'
 
+# Compositor stopping/restarting for performance
+alias compstop='qdbus org.kde.KWin /Compositor suspend'
+alias compstart='qdbus org.kde.KWin /Compositor resume'
+
+alias radeontop='radeontop -c'
+
 ## Functions
 
 function cdl() {
-    if [[ -z "$1" ]]; then
-        cd && ls
-    else
-        cd "$1" && ls
-    fi
+    cd $1 && ls
+}
+
+function cdla() {
+    cd $1 && la
+}
+
+function cdll() {
+    cd $1 && ll
 }
 
 function mkcd() {
@@ -55,5 +66,28 @@ function cdu() {
     local gitroot=$(git rev-parse --show-toplevel)
     cdl "$gitroot"
     return 0
+}
+
+function man() {
+    env \
+        LESS_TERMCAP_mb=$'\E[01;31m'    \
+        LESS_TERMCAP_md=$'\E[01;31m'    \
+        LESS_TERMCAP_me=$'\E[0m'        \
+        LESS_TERMCAP_se=$'\E[0m'        \
+        LESS_TERMCAP_so=$'\E[01;44;33m' \
+        LESS_TERMCAP_ue=$'\E[0m'        \
+        LESS_TERMCAP_us=$'\E[01;32m'    \
+    man $@
+}
+
+# Because file selection is broken on VirtualBox
+# https://www.virtualbox.org/ticket/20222
+function virtualbox() {
+    env                         \
+        KDE_FULL_SESSION=       \
+        XDG_CURRENT_DESKTOP=    \
+        DESKTOP_SESSION=        \
+    virtualbox &
+    disown
 }
 

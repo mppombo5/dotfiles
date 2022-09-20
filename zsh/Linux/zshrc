@@ -18,14 +18,24 @@ compinit
 
 ## Plugins!
 # I like autosuggestions
-source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+autosuggest_file="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if ! [[ -f $autosuggest_file ]]; then
+    echo "zsh-autosuggestions.zsh not found in $(dirname $autosuggest_file). Install the plugin or consider updating the location in your zshrc."
+else
+    source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
 
 # I also like syntax highlighting
-source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+syntax_file="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if ! [[ -f $syntax_file ]]; then
+    echo "zsh-syntax-highlighting.zsh not found in $(dirname $syntax_file). Install the plugin or consider updating the location in your zshrc."
+else
+    source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
-# I'm so fucking cool just look at me go
+# I'm such a cool guy just look at me go
 echo 'Welcome back, Matthew!'
-neofetch --colors 4 1 10 9 15 7
+neofetch    # Consult neofetch config files to set colors
 
 # I'm an important guy
 export PATH="$PATH:$HOME/.bin:."
